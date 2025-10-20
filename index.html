@@ -1,0 +1,1246 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AutoInfo - Especificações Técnicas de Carros</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #0d1b2a;
+            --secondary: #1b263b;
+            --accent: #e63946;
+            --accent-light: #ff6b7a;
+            --light: #f8f9fa;
+            --gray: #adb5bd;
+            --dark: #212529;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f5f5f5;
+            color: var(--dark);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+
+        /* Header */
+        header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 1rem 0;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+        }
+
+        .logo i {
+            margin-right: 10px;
+            font-size: 2rem;
+            color: var(--accent);
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+
+        nav ul li {
+            margin-left: 1.5rem;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            padding: 5px 10px;
+            border-radius: 4px;
+        }
+
+        nav ul li a:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(rgba(13, 27, 42, 0.8), rgba(27, 38, 59, 0.8)), 
+                        url('https://images.unsplash.com/photo-1494976388531-d1058494cdd8?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80') no-repeat center center/cover;
+            height: 400px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+        }
+
+        .hero-content h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .hero-content p {
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Seção de Informações */
+        .info-section {
+            padding: 4rem 0;
+            background-color: white;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+            color: var(--primary);
+        }
+
+        .section-title h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .section-title p {
+            font-size: 1.1rem;
+            color: #666;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .feature-card {
+            background-color: var(--light);
+            padding: 2rem;
+            border-radius: 8px;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            color: var(--accent);
+            margin-bottom: 1.5rem;
+        }
+
+        .feature-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--primary);
+        }
+
+        /* Seção de Pesquisa */
+        .search-section {
+            padding: 4rem 0;
+            background-color: #f8f9fa;
+        }
+
+        .search-container {
+            background-color: white;
+            border-radius: 8px;
+            padding: 2rem;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .search-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .search-header h2 {
+            font-size: 2rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .search-header p {
+            color: #666;
+        }
+
+        .filters {
+            margin-bottom: 2rem;
+        }
+
+        .filter-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .filter-group {
+            display: flex;
+            align-items: center;
+        }
+
+        .filter-group label {
+            margin-right: 0.5rem;
+            font-weight: 500;
+            color: var(--primary);
+        }
+
+        .filter-group select, .filter-group input {
+            padding: 0.5rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            background-color: white;
+        }
+
+        .search-box {
+            display: flex;
+            align-items: center;
+        }
+
+        .search-box input {
+            padding: 0.5rem;
+            border: 1px solid #ddd;
+            border-radius: 4px 0 0 4px;
+            width: 250px;
+        }
+
+        .search-box button {
+            padding: 0.5rem 1rem;
+            background-color: var(--accent);
+            color: white;
+            border: none;
+            border-radius: 0 4px 4px 0;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .search-box button:hover {
+            background-color: var(--accent-light);
+        }
+
+        /* Grid de carros */
+        .cars-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .car-card {
+            background-color: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+            cursor: pointer;
+        }
+
+        .car-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .car-image {
+            height: 200px;
+            overflow: hidden;
+        }
+
+        .car-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+
+        .car-card:hover .car-image img {
+            transform: scale(1.05);
+        }
+
+        .car-info {
+            padding: 1.5rem;
+        }
+
+        .car-info h3 {
+            font-size: 1.4rem;
+            margin-bottom: 0.5rem;
+            color: var(--primary);
+        }
+
+        .car-info .year {
+            color: #666;
+            margin-bottom: 0.5rem;
+        }
+
+        .car-info .price {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--accent);
+            margin-bottom: 1rem;
+        }
+
+        .car-specs {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+        }
+
+        .spec {
+            text-align: center;
+        }
+
+        .spec-value {
+            font-weight: 700;
+            font-size: 1.1rem;
+            color: var(--primary);
+        }
+
+        .spec-label {
+            font-size: 0.8rem;
+            color: #666;
+        }
+
+        .btn-details {
+            display: block;
+            width: 100%;
+            padding: 0.8rem;
+            background-color: var(--primary);
+            color: white;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 4px;
+            font-weight: 500;
+            transition: background-color 0.3s;
+        }
+
+        .btn-details:hover {
+            background-color: var(--secondary);
+        }
+
+        /* Modal de detalhes */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            z-index: 1000;
+            overflow-y: auto;
+        }
+
+        .modal-content {
+            background-color: white;
+            margin: 2rem auto;
+            width: 90%;
+            max-width: 1000px;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            animation: modalFade 0.3s;
+        }
+
+        @keyframes modalFade {
+            from { opacity: 0; transform: translateY(-50px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .modal-header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-header h2 {
+            font-size: 1.8rem;
+        }
+
+        .close-btn {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+
+        .close-btn:hover {
+            transform: scale(1.2);
+        }
+
+        .modal-body {
+            padding: 2rem;
+        }
+
+        .car-detail-image {
+            width: 100%;
+            height: 400px;
+            overflow: hidden;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+        }
+
+        .car-detail-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .detail-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .detail-section {
+            margin-bottom: 2rem;
+        }
+
+        .detail-section h3 {
+            font-size: 1.4rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--accent);
+        }
+
+        .spec-list {
+            list-style: none;
+        }
+
+        .spec-list li {
+            padding: 0.8rem 0;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .spec-list li:last-child {
+            border-bottom: none;
+        }
+
+        .spec-name {
+            font-weight: 500;
+        }
+
+        .spec-value {
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .highlight {
+            background-color: #f9f9f9;
+            padding: 1.5rem;
+            border-radius: 8px;
+            border-left: 4px solid var(--accent);
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--primary);
+            color: white;
+            padding: 2rem 0;
+            text-align: center;
+        }
+
+        .footer-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .footer-logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .footer-links {
+            display: flex;
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-links a {
+            color: white;
+            margin: 0 1rem;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: var(--accent);
+        }
+
+        .social-icons {
+            display: flex;
+            margin-bottom: 1.5rem;
+        }
+
+        .social-icons a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            margin: 0 0.5rem;
+            color: white;
+            text-decoration: none;
+            transition: background-color 0.3s;
+        }
+
+        .social-icons a:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .copyright {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        /* Responsividade */
+        @media (max-width: 992px) {
+            .cars-grid {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            nav ul {
+                margin-top: 1rem;
+                justify-content: center;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+                position: absolute;
+                top: 1rem;
+                right: 1rem;
+            }
+
+            .nav-menu {
+                display: none;
+                width: 100%;
+                margin-top: 1rem;
+            }
+
+            .nav-menu.active {
+                display: block;
+            }
+
+            nav ul {
+                flex-direction: column;
+            }
+
+            nav ul li {
+                margin: 0.5rem 0;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .filter-container {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .filter-group {
+                margin-right: 0;
+                margin-bottom: 1rem;
+                justify-content: space-between;
+            }
+
+            .search-box {
+                width: 100%;
+            }
+
+            .search-box input {
+                width: 100%;
+            }
+
+            .cars-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .modal-content {
+                width: 95%;
+                margin: 1rem auto;
+            }
+
+            .modal-body {
+                padding: 1rem;
+            }
+
+            .car-detail-image {
+                height: 250px;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .hero {
+                height: 300px;
+            }
+
+            .hero-content h1 {
+                font-size: 1.8rem;
+            }
+
+            .hero-content p {
+                font-size: 1rem;
+            }
+
+            .detail-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-content">
+            <div class="logo">
+                <i class="fas fa-car"></i>
+                AutoInfo
+            </div>
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <i class="fas fa-bars"></i>
+            </button>
+            <nav class="nav-menu" id="navMenu">
+                <ul>
+                    <li><a href="#inicio">Início</a></li>
+                    <li><a href="#sobre">Sobre</a></li>
+                    <li><a href="#pesquisa">Pesquisa</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="inicio">
+        <div class="hero-content">
+            <h1>Especificações Técnicas de Carros</h1>
+            <p>Encontre informações detalhadas sobre os veículos mais populares do mercado</p>
+        </div>
+    </section>
+
+    <!-- Seção de Informações -->
+    <section class="info-section" id="sobre">
+        <div class="container">
+            <div class="section-title">
+                <h2>Bem-vindo ao AutoInfo</h2>
+                <p>Nosso site é dedicado a fornecer informações técnicas completas sobre diversos modelos de carros. Aqui você encontra especificações detalhadas sem a influência de vendas ou interações sociais.</p>
+            </div>
+            
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-info-circle"></i>
+                    </div>
+                    <h3>Informações Técnicas</h3>
+                    <p>Encontre dados precisos sobre motores, desempenho, consumo e muito mais para cada modelo de carro.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-search"></i>
+                    </div>
+                    <h3>Pesquisa Avançada</h3>
+                    <p>Filtre carros por marca, tipo, preço e outras características para encontrar exatamente o que procura.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-chart-bar"></i>
+                    </div>
+                    <h3>Comparações Detalhadas</h3>
+                    <p>Compare especificações técnicas entre diferentes modelos para tomar decisões informadas.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Seção de Pesquisa -->
+    <section class="search-section" id="pesquisa">
+        <div class="container">
+            <div class="search-container">
+                <div class="search-header">
+                    <h2>Pesquisa de Carros</h2>
+                    <p>Encontre informações técnicas detalhadas sobre os carros que você procura</p>
+                </div>
+                
+                <div class="filters">
+                    <div class="filter-container">
+                        <div class="filter-group">
+                            <label for="brand">Marca:</label>
+                            <select id="brand">
+                                <option value="all">Todas</option>
+                                <option value="audi">Audi</option>
+                                <option value="bmw">BMW</option>
+                                <option value="mercedes">Mercedes-Benz</option>
+                                <option value="porsche">Porsche</option>
+                                <option value="tesla">Tesla</option>
+                                <option value="ferrari">Ferrari</option>
+                                <option value="lamborghini">Lamborghini</option>
+                                <option value="ford">Ford</option>
+                                <option value="chevrolet">Chevrolet</option>
+                            </select>
+                        </div>
+                        <div class="filter-group">
+                            <label for="type">Tipo:</label>
+                            <select id="type">
+                                <option value="all">Todos</option>
+                                <option value="sedan">Sedan</option>
+                                <option value="suv">SUV</option>
+                                <option value="hatch">Hatch</option>
+                                <option value="sport">Esportivo</option>
+                                <option value="coupe">Cupê</option>
+                            </select>
+                        </div>
+                        <div class="filter-group">
+                            <label for="price">Preço:</label>
+                            <select id="price">
+                                <option value="all">Todos</option>
+                                <option value="low">Até R$ 100.000</option>
+                                <option value="medium">R$ 100.000 - R$ 300.000</option>
+                                <option value="high">Acima de R$ 300.000</option>
+                            </select>
+                        </div>
+                        <div class="search-box">
+                            <input type="text" id="searchInput" placeholder="Buscar carro...">
+                            <button id="searchBtn"><i class="fas fa-search"></i></button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="cars-grid" id="carsGrid">
+                    <!-- Os carros serão carregados via JavaScript -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Modal de Detalhes -->
+    <div id="carModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modalTitle">Carro</h2>
+                <button class="close-btn" onclick="closeModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="car-detail-image">
+                    <img id="modalImage" src="" alt="Carro">
+                </div>
+                
+                <div class="highlight">
+                    <p id="modalDescription">Descrição do carro.</p>
+                </div>
+                
+                <div class="detail-grid">
+                    <div class="detail-section">
+                        <h3>Informações Gerais</h3>
+                        <ul class="spec-list" id="generalInfo">
+                            <!-- Informações serão preenchidas via JavaScript -->
+                        </ul>
+                    </div>
+                    
+                    <div class="detail-section">
+                        <h3>Motor e Desempenho</h3>
+                        <ul class="spec-list" id="performanceInfo">
+                            <!-- Informações serão preenchidas via JavaScript -->
+                        </ul>
+                    </div>
+                    
+                    <div class="detail-section">
+                        <h3>Dimensões e Peso</h3>
+                        <ul class="spec-list" id="dimensionsInfo">
+                            <!-- Informações serão preenchidas via JavaScript -->
+                        </ul>
+                    </div>
+                    
+                    <div class="detail-section">
+                        <h3>Transmissão e Tração</h3>
+                        <ul class="spec-list" id="transmissionInfo">
+                            <!-- Informações serão preenchidas via JavaScript -->
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer id="contato">
+        <div class="container footer-content">
+            <div class="footer-logo">
+                <i class="fas fa-car"></i> AutoInfo
+            </div>
+            <div class="footer-links">
+                <a href="#inicio">Início</a>
+                <a href="#sobre">Sobre</a>
+                <a href="#pesquisa">Pesquisa</a>
+            </div>
+            <div class="copyright">
+                &copy; 2023 AutoInfo. Site informativo sobre especificações técnicas de carros.
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Dados dos carros
+        const carData = [
+            {
+                id: 'audi-rs7',
+                title: 'Audi RS7 Sportback',
+                brand: 'audi',
+                type: 'sedan',
+                price: 'high',
+                image: 'audirs7.webp',
+                description: 'O Audi RS7 Sportback combina o design elegante de um cupê com a praticidade de um hatchback, oferecendo desempenho excepcional e tecnologia de ponta.',
+                general: [
+                    { name: 'Ano', value: '2023' },
+                    { name: 'Preço', value: 'R$ 899.990' },
+                    { name: 'Categoria', value: 'Sedan Esportivo' },
+                    { name: 'Portas', value: '5' },
+                    { name: 'Lugares', value: '5' }
+                ],
+                performance: [
+                    { name: 'Motor', value: '4.0L V8 Biturbo' },
+                    { name: 'Potência', value: '600 cv' },
+                    { name: 'Torque', value: '81,6 kgfm' },
+                    { name: '0-100 km/h', value: '3,6 segundos' },
+                    { name: 'Velocidade Máxima', value: '305 km/h' }
+                ],
+                dimensions: [
+                    { name: 'Comprimento', value: '4.969 mm' },
+                    { name: 'Largura', value: '1.951 mm' },
+                    { name: 'Altura', value: '1.422 mm' },
+                    { name: 'Peso', value: '2.050 kg' },
+                    { name: 'Porta-malas', value: '535 litros' }
+                ],
+                transmission: [
+                    { name: 'Transmissão', value: 'Automática de 8 velocidades' },
+                    { name: 'Tração', value: 'Integral (Quattro)' },
+                    { name: 'Consumo cidade', value: '6,8 km/l' },
+                    { name: 'Consumo estrada', value: '9,2 km/l' }
+                ]
+            },
+            {
+                id: 'bmw-m4',
+                title: 'BMW M4 Competition',
+                brand: 'bmw',
+                type: 'coupe',
+                price: 'high',
+                image: 'm4.jpg',
+                description: 'O BMW M4 Competition é um cupê esportivo que oferece desempenho excepcional, design agressivo e tecnologia avançada para os entusiastas da direção.',
+                general: [
+                    { name: 'Ano', value: '2023' },
+                    { name: 'Preço', value: 'R$ 759.990' },
+                    { name: 'Categoria', value: 'Cupê Esportivo' },
+                    { name: 'Portas', value: '2' },
+                    { name: 'Lugares', value: '4' }
+                ],
+                performance: [
+                    { name: 'Motor', value: '3.0L R6 Biturbo' },
+                    { name: 'Potência', value: '510 cv' },
+                    { name: 'Torque', value: '66,3 kgfm' },
+                    { name: '0-100 km/h', value: '3,9 segundos' },
+                    { name: 'Velocidade Máxima', value: '290 km/h' }
+                ],
+                dimensions: [
+                    { name: 'Comprimento', value: '4.794 mm' },
+                    { name: 'Largura', value: '1.887 mm' },
+                    { name: 'Altura', value: '1.393 mm' },
+                    { name: 'Peso', value: '1.800 kg' },
+                    { name: 'Porta-malas', value: '440 litros' }
+                ],
+                transmission: [
+                    { name: 'Transmissão', value: 'Automática de 8 velocidades' },
+                    { name: 'Tração', value: 'Traseira' },
+                    { name: 'Consumo cidade', value: '7,5 km/l' },
+                    { name: 'Consumo estrada', value: '10,2 km/l' }
+                ]
+            },
+            {
+                id: 'mercedes-amg',
+                title: 'Mercedes-AMG GT 63 S',
+                brand: 'mercedes',
+                type: 'coupe',
+                price: 'high',
+                image: 'amggt63.webp',
+                description: 'O Mercedes-AMG GT 63 S é um super sedã que combina luxo, conforto e desempenho extremo em um pacote exclusivo.',
+                general: [
+                    { name: 'Ano', value: '2023' },
+                    { name: 'Preço', value: 'R$ 1.199.990' },
+                    { name: 'Categoria', value: 'Sedan Esportivo' },
+                    { name: 'Portas', value: '4' },
+                    { name: 'Lugares', value: '5' }
+                ],
+                performance: [
+                    { name: 'Motor', value: '4.0L V8 Biturbo' },
+                    { name: 'Potência', value: '639 cv' },
+                    { name: 'Torque', value: '91,8 kgfm' },
+                    { name: '0-100 km/h', value: '3,2 segundos' },
+                    { name: 'Velocidade Máxima', value: '315 km/h' }
+                ],
+                dimensions: [
+                    { name: 'Comprimento', value: '5.054 mm' },
+                    { name: 'Largura', value: '1.953 mm' },
+                    { name: 'Altura', value: '1.455 mm' },
+                    { name: 'Peso', value: '2.165 kg' },
+                    { name: 'Porta-malas', value: '456 litros' }
+                ],
+                transmission: [
+                    { name: 'Transmissão', value: 'Automática de 9 velocidades' },
+                    { name: 'Tração', value: 'Integral (4MATIC+)' },
+                    { name: 'Consumo cidade', value: '6,5 km/l' },
+                    { name: 'Consumo estrada', value: '8,9 km/l' }
+                ]
+            },
+            {
+                id: 'porsche-911',
+                title: 'Porsche 911 Turbo S',
+                brand: 'porsche',
+                type: 'sport',
+                price: 'high',
+                image: 'porsche911.jpg',
+                description: 'O Porsche 911 Turbo S é um ícone automotivo que combina desempenho brutal com elegância atemporal e precisão alemã.',
+                general: [
+                    { name: 'Ano', value: '2023' },
+                    { name: 'Preço', value: 'R$ 1.399.990' },
+                    { name: 'Categoria', value: 'Esportivo' },
+                    { name: 'Portas', value: '2' },
+                    { name: 'Lugares', value: '4' }
+                ],
+                performance: [
+                    { name: 'Motor', value: '3.8L B6 Biturbo' },
+                    { name: 'Potência', value: '650 cv' },
+                    { name: 'Torque', value: '81,6 kgfm' },
+                    { name: '0-100 km/h', value: '2,7 segundos' },
+                    { name: 'Velocidade Máxima', value: '330 km/h' }
+                ],
+                dimensions: [
+                    { name: 'Comprimento', value: '4.535 mm' },
+                    { name: 'Largura', value: '1.900 mm' },
+                    { name: 'Altura', value: '1.303 mm' },
+                    { name: 'Peso', value: '1.640 kg' },
+                    { name: 'Porta-malas', value: '132 litros' }
+                ],
+                transmission: [
+                    { name: 'Transmissão', value: 'Automática de 8 velocidades (PDK)' },
+                    { name: 'Tração', value: 'Integral' },
+                    { name: 'Consumo cidade', value: '7,2 km/l' },
+                    { name: 'Consumo estrada', value: '9,8 km/l' }
+                ]
+            },
+            {
+                id: 'tesla-model-s',
+                title: 'Tesla Model S Plaid',
+                brand: 'tesla',
+                type: 'sedan',
+                price: 'high',
+                image: 'https://images.unsplash.com/photo-1560958089-b8a1929cea89?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80',
+                description: 'O Tesla Model S Plaid redefine o conceito de sedan de alto desempenho com aceleração elétrica instantânea e tecnologia autônoma avançada.',
+                general: [
+                    { name: 'Ano', value: '2023' },
+                    { name: 'Preço', value: 'R$ 699.990' },
+                    { name: 'Categoria', value: 'Sedan Elétrico' },
+                    { name: 'Portas', value: '4' },
+                    { name: 'Lugares', value: '5' }
+                ],
+                performance: [
+                    { name: 'Motor', value: 'Três motores elétricos' },
+                    { name: 'Potência', value: '1.020 cv' },
+                    { name: 'Torque', value: '142,4 kgfm' },
+                    { name: '0-100 km/h', value: '2,1 segundos' },
+                    { name: 'Velocidade Máxima', value: '322 km/h' }
+                ],
+                dimensions: [
+                    { name: 'Comprimento', value: '4.979 mm' },
+                    { name: 'Largura', value: '1.964 mm' },
+                    { name: 'Altura', value: '1.445 mm' },
+                    { name: 'Peso', value: '2.162 kg' },
+                    { name: 'Porta-malas', value: '793 litros' }
+                ],
+                transmission: [
+                    { name: 'Transmissão', value: 'Automática de um estágio' },
+                    { name: 'Tração', value: 'Integral' },
+                    { name: 'Autonomia', value: '637 km' },
+                    { name: 'Recarga rápida', value: '15 min (0-80%)' }
+                ]
+            },
+            {
+                id: 'ford-mustang',
+                title: 'Ford Mustang GT',
+                brand: 'ford',
+                type: 'coupe',
+                price: 'medium',
+                image: 'fordmustang.webp',
+                description: 'O Ford Mustang GT é um muscle car americano icônico que combina design agressivo, potência bruta e acessibilidade.',
+                general: [
+                    { name: 'Ano', value: '2023' },
+                    { name: 'Preço', value: 'R$ 459.990' },
+                    { name: 'Categoria', value: 'Muscle Car' },
+                    { name: 'Portas', value: '2' },
+                    { name: 'Lugares', value: '4' }
+                ],
+                performance: [
+                    { name: 'Motor', value: '5.0L V8' },
+                    { name: 'Potência', value: '450 cv' },
+                    { name: 'Torque', value: '54 kgfm' },
+                    { name: '0-100 km/h', value: '4,3 segundos' },
+                    { name: 'Velocidade Máxima', value: '250 km/h' }
+                ],
+                dimensions: [
+                    { name: 'Comprimento', value: '4.788 mm' },
+                    { name: 'Largura', value: '1.916 mm' },
+                    { name: 'Altura', value: '1.382 mm' },
+                    { name: 'Peso', value: '1.705 kg' },
+                    { name: 'Porta-malas', value: '382 litros' }
+                ],
+                transmission: [
+                    { name: 'Transmissão', value: 'Automática de 10 velocidades' },
+                    { name: 'Tração', value: 'Traseira' },
+                    { name: 'Consumo cidade', value: '6,2 km/l' },
+                    { name: 'Consumo estrada', value: '9,1 km/l' }
+                ]
+            },
+            {
+                id: 'chevrolet-camaro',
+                title: 'Chevrolet Camaro SS',
+                brand: 'chevrolet',
+                type: 'coupe',
+                price: 'medium',
+                image: 'camaro.jpg',
+                description: 'O Chevrolet Camaro SS é um muscle car lendário que oferece desempenho emocionante e um design marcante que chama atenção.',
+                general: [
+                    { name: 'Ano', value: '2023' },
+                    { name: 'Preço', value: 'R$ 399.990' },
+                    { name: 'Categoria', value: 'Muscle Car' },
+                    { name: 'Portas', value: '2' },
+                    { name: 'Lugares', value: '4' }
+                ],
+                performance: [
+                    { name: 'Motor', value: '6.2L V8' },
+                    { name: 'Potência', value: '455 cv' },
+                    { name: 'Torque', value: '62,2 kgfm' },
+                    { name: '0-100 km/h', value: '4,0 segundos' },
+                    { name: 'Velocidade Máxima', value: '290 km/h' }
+                ],
+                dimensions: [
+                    { name: 'Comprimento', value: '4.784 mm' },
+                    { name: 'Largura', value: '1.897 mm' },
+                    { name: 'Altura', value: '1.348 mm' },
+                    { name: 'Peso', value: '1.695 kg' },
+                    { name: 'Porta-malas', value: '320 litros' }
+                ],
+                transmission: [
+                    { name: 'Transmissão', value: 'Automática de 10 velocidades' },
+                    { name: 'Tração', value: 'Traseira' },
+                    { name: 'Consumo cidade', value: '6,5 km/l' },
+                    { name: 'Consumo estrada', value: '9,4 km/l' }
+                ]
+            }
+        ];
+
+        // Elementos DOM
+        const carsGrid = document.getElementById('carsGrid');
+        const brandFilter = document.getElementById('brand');
+        const typeFilter = document.getElementById('type');
+        const priceFilter = document.getElementById('price');
+        const searchInput = document.getElementById('searchInput');
+        const searchBtn = document.getElementById('searchBtn');
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const navMenu = document.getElementById('navMenu');
+
+        // Inicialização
+        document.addEventListener('DOMContentLoaded', function() {
+            renderCars(carData);
+            setupEventListeners();
+        });
+
+        // Configurar event listeners
+        function setupEventListeners() {
+            brandFilter.addEventListener('change', filterCars);
+            typeFilter.addEventListener('change', filterCars);
+            priceFilter.addEventListener('change', filterCars);
+            searchBtn.addEventListener('click', searchCars);
+            searchInput.addEventListener('keyup', function(event) {
+                if (event.key === 'Enter') {
+                    searchCars();
+                }
+            });
+            
+            mobileMenuBtn.addEventListener('click', function() {
+                navMenu.classList.toggle('active');
+            });
+        }
+
+        // Renderizar carros no grid
+        function renderCars(cars) {
+            carsGrid.innerHTML = '';
+            
+            if (cars.length === 0) {
+                carsGrid.innerHTML = '<p class="no-results" style="text-align: center; grid-column: 1/-1; padding: 2rem; color: #666;">Nenhum carro encontrado com os filtros selecionados.</p>';
+                return;
+            }
+            
+            cars.forEach(car => {
+                const price = car.general.find(item => item.name === 'Preço').value;
+                
+                const carCard = document.createElement('div');
+                carCard.className = 'car-card';
+                carCard.setAttribute('onclick', `openModal('${car.id}')`);
+                
+                carCard.innerHTML = `
+                    <div class="car-image">
+                        <img src="${car.image}" alt="${car.title}">
+                    </div>
+                    <div class="car-info">
+                        <h3>${car.title}</h3>
+                        <p class="year">${car.general.find(item => item.name === 'Ano').value}</p>
+                        <p class="price">${price}</p>
+                        <div class="car-specs">
+                            <div class="spec">
+                                <div class="spec-value">${car.performance.find(item => item.name === 'Potência').value}</div>
+                                <div class="spec-label">Potência</div>
+                            </div>
+                            <div class="spec">
+                                <div class="spec-value">${car.performance.find(item => item.name === '0-100 km/h').value}</div>
+                                <div class="spec-label">0-100 km/h</div>
+                            </div>
+                            <div class="spec">
+                                <div class="spec-value">${car.performance.find(item => item.name === 'Motor').value.split(' ')[0]}</div>
+                                <div class="spec-label">Motor</div>
+                            </div>
+                        </div>
+                        <a class="btn-details">Ver Detalhes</a>
+                    </div>
+                `;
+                
+                carsGrid.appendChild(carCard);
+            });
+        }
+
+        // Filtrar carros
+        function filterCars() {
+            const brandValue = brandFilter.value;
+            const typeValue = typeFilter.value;
+            const priceValue = priceFilter.value;
+            const searchValue = searchInput.value.toLowerCase();
+            
+            const filteredCars = carData.filter(car => {
+                const matchesBrand = brandValue === 'all' || car.brand === brandValue;
+                const matchesType = typeValue === 'all' || car.type === typeValue;
+                const matchesPrice = priceValue === 'all' || car.price === priceValue;
+                const matchesSearch = searchValue === '' || 
+                    car.title.toLowerCase().includes(searchValue) ||
+                    car.brand.toLowerCase().includes(searchValue);
+                
+                return matchesBrand && matchesType && matchesPrice && matchesSearch;
+            });
+            
+            renderCars(filteredCars);
+        }
+
+        // Pesquisar carros
+        function searchCars() {
+            filterCars();
+        }
+
+        // Função para abrir o modal
+        function openModal(carId) {
+            const car = carData.find(c => c.id === carId);
+            if (!car) return;
+            
+            document.getElementById('modalTitle').textContent = car.title;
+            document.getElementById('modalImage').src = car.image;
+            document.getElementById('modalDescription').textContent = car.description;
+            
+            // Preencher informações gerais
+            fillSpecList('generalInfo', car.general);
+            fillSpecList('performanceInfo', car.performance);
+            fillSpecList('dimensionsInfo', car.dimensions);
+            fillSpecList('transmissionInfo', car.transmission);
+            
+            document.getElementById('carModal').style.display = 'block';
+        }
+
+        // Função para preencher lista de especificações
+        function fillSpecList(elementId, specs) {
+            const element = document.getElementById(elementId);
+            element.innerHTML = '';
+            
+            specs.forEach(spec => {
+                const li = document.createElement('li');
+                li.innerHTML = `<span class="spec-name">${spec.name}</span><span class="spec-value">${spec.value}</span>`;
+                element.appendChild(li);
+            });
+        }
+
+        // Função para fechar o modal
+        function closeModal() {
+            document.getElementById('carModal').style.display = 'none';
+        }
+
+        // Fechar modal ao clicar fora dele
+        window.onclick = function(event) {
+            const modal = document.getElementById('carModal');
+            if (event.target === modal) {
+                closeModal();
+            }
+        }
+    </script>
+</body>
+</html>
