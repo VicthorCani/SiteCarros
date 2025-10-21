@@ -259,6 +259,39 @@
             background-color: var(--accent-light);
         }
 
+        /* Controles de paginação */
+        .pagination-controls {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 2rem 0;
+            gap: 1rem;
+        }
+
+        .pagination-btn {
+            padding: 0.5rem 1rem;
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .pagination-btn:hover:not(:disabled) {
+            background-color: var(--secondary);
+        }
+
+        .pagination-btn:disabled {
+            background-color: var(--gray);
+            cursor: not-allowed;
+        }
+
+        .page-info {
+            font-weight: 500;
+            color: var(--primary);
+        }
+
         /* Grid de carros */
         .cars-grid {
             display: grid;
@@ -662,6 +695,7 @@
                     <li><a href="#inicio">Início</a></li>
                     <li><a href="#sobre">Sobre</a></li>
                     <li><a href="#pesquisa">Pesquisa</a></li>
+                    <li><a href="#contato">Contato</a></li>
                 </ul>
             </nav>
         </div>
@@ -726,15 +760,20 @@
                             <label for="brand">Marca:</label>
                             <select id="brand">
                                 <option value="all">Todas</option>
-                                <option value="audi">Audi</option>
-                                <option value="bmw">BMW</option>
-                                <option value="mercedes">Mercedes-Benz</option>
-                                <option value="porsche">Porsche</option>
-                                <option value="tesla">Tesla</option>
                                 <option value="ferrari">Ferrari</option>
                                 <option value="lamborghini">Lamborghini</option>
+                                <option value="porsche">Porsche</option>
+                                <option value="bmw">BMW</option>
+                                <option value="mercedes">Mercedes-Benz</option>
+                                <option value="toyota">Toyota</option>
+                                <option value="honda">Honda</option>
                                 <option value="ford">Ford</option>
                                 <option value="chevrolet">Chevrolet</option>
+                                <option value="fiat">Fiat</option>
+                                <option value="volkswagen">Volkswagen</option>
+                                <option value="tesla">Tesla</option>
+                                <option value="aston-martin">Aston Martin</option>
+                                <option value="mclaren">McLaren</option>
                             </select>
                         </div>
                         <div class="filter-group">
@@ -746,6 +785,8 @@
                                 <option value="hatch">Hatch</option>
                                 <option value="sport">Esportivo</option>
                                 <option value="coupe">Cupê</option>
+                                <option value="pickup">Pickup</option>
+                                <option value="classic">Clássico</option>
                             </select>
                         </div>
                         <div class="filter-group">
@@ -762,6 +803,13 @@
                             <button id="searchBtn"><i class="fas fa-search"></i></button>
                         </div>
                     </div>
+                </div>
+                
+                <!-- Controles de paginação -->
+                <div class="pagination-controls">
+                    <button class="pagination-btn" id="prevBtn" disabled>Anterior</button>
+                    <span class="page-info" id="pageInfo">Página 1 de 1</span>
+                    <button class="pagination-btn" id="nextBtn">Próxima</button>
                 </div>
                 
                 <div class="cars-grid" id="carsGrid">
@@ -830,6 +878,7 @@
                 <a href="#inicio">Início</a>
                 <a href="#sobre">Sobre</a>
                 <a href="#pesquisa">Pesquisa</a>
+                <a href="#contato">Contato</a>
             </div>
             <div class="copyright">
                 &copy; 2023 AutoInfo. Site informativo sobre especificações técnicas de carros.
@@ -840,56 +889,246 @@
     <script>
         // Dados dos carros
         const carData = [
+            // Ferrari
             {
-                id: 'audi-rs7',
-                title: 'Audi RS7 Sportback',
-                brand: 'audi',
-                type: 'sedan',
+                id: 'ferrari-488-gtb',
+                title: 'Ferrari 488 GTB',
+                brand: 'ferrari',
+                type: 'sport',
                 price: 'high',
-                image: 'audirs7.webp',
-                description: 'O Audi RS7 Sportback combina o design elegante de um cupê com a praticidade de um hatchback, oferecendo desempenho excepcional e tecnologia de ponta.',
+                image: 'https://images.unsplash.com/photo-1592198084033-aade902d1aae?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80',
+                description: 'A Ferrari 488 GTB é um supercarro de médio motor com desempenho excepcional e design aerodinâmico.',
                 general: [
-                    { name: 'Ano', value: '2023' },
-                    { name: 'Preço', value: 'R$ 899.990' },
-                    { name: 'Categoria', value: 'Sedan Esportivo' },
+                    { name: 'Ano', value: '2015' },
+                    { name: 'Preço', value: 'R$ 2.500.000' },
+                    { name: 'Categoria', value: 'Supercarro' },
+                    { name: 'Portas', value: '2' },
+                    { name: 'Lugares', value: '2' }
+                ],
+                performance: [
+                    { name: 'Motor', value: '3.9L V8 Biturbo' },
+                    { name: 'Potência', value: '670 cv' },
+                    { name: 'Torque', value: '77,5 kgfm' },
+                    { name: '0-100 km/h', value: '3,0 segundos' },
+                    { name: 'Velocidade Máxima', value: '330 km/h' }
+                ],
+                dimensions: [
+                    { name: 'Comprimento', value: '4.568 mm' },
+                    { name: 'Largura', value: '1.952 mm' },
+                    { name: 'Altura', value: '1.213 mm' },
+                    { name: 'Peso', value: '1.370 kg' },
+                    { name: 'Porta-malas', value: '230 litros' }
+                ],
+                transmission: [
+                    { name: 'Transmissão', value: 'Automática de 7 velocidades' },
+                    { name: 'Tração', value: 'Traseira' },
+                    { name: 'Consumo cidade', value: '6,5 km/l' },
+                    { name: 'Consumo estrada', value: '9,8 km/l' }
+                ]
+            },
+            {
+                id: 'ferrari-f8-tributo',
+                title: 'Ferrari F8 Tributo',
+                brand: 'ferrari',
+                type: 'sport',
+                price: 'high',
+                image: 'https://images.unsplash.com/photo-1592198084033-aade902d1aae?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80',
+                description: 'A Ferrari F8 Tributo é a evolução da 488 GTB, com mais potência e aerodinâmica aprimorada.',
+                general: [
+                    { name: 'Ano', value: '2019' },
+                    { name: 'Preço', value: 'R$ 3.200.000' },
+                    { name: 'Categoria', value: 'Supercarro' },
+                    { name: 'Portas', value: '2' },
+                    { name: 'Lugares', value: '2' }
+                ],
+                performance: [
+                    { name: 'Motor', value: '3.9L V8 Biturbo' },
+                    { name: 'Potência', value: '720 cv' },
+                    { name: 'Torque', value: '78,5 kgfm' },
+                    { name: '0-100 km/h', value: '2,9 segundos' },
+                    { name: 'Velocidade Máxima', value: '340 km/h' }
+                ],
+                dimensions: [
+                    { name: 'Comprimento', value: '4.611 mm' },
+                    { name: 'Largura', value: '1.979 mm' },
+                    { name: 'Altura', value: '1.206 mm' },
+                    { name: 'Peso', value: '1.335 kg' },
+                    { name: 'Porta-malas', value: '200 litros' }
+                ],
+                transmission: [
+                    { name: 'Transmissão', value: 'Automática de 7 velocidades' },
+                    { name: 'Tração', value: 'Traseira' },
+                    { name: 'Consumo cidade', value: '6,8 km/l' },
+                    { name: 'Consumo estrada', value: '10,2 km/l' }
+                ]
+            },
+            // Adicione mais carros seguindo o mesmo padrão...
+            
+            // Lamborghini
+            {
+                id: 'lamborghini-aventador',
+                title: 'Lamborghini Aventador',
+                brand: 'lamborghini',
+                type: 'sport',
+                price: 'high',
+                image: 'https://images.unsplash.com/photo-1544829099-b9a0c07fad1a?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80',
+                description: 'O Lamborghini Aventador é um supercarro com design agressivo e motor V12 de alto desempenho.',
+                general: [
+                    { name: 'Ano', value: '2011' },
+                    { name: 'Preço', value: 'R$ 4.500.000' },
+                    { name: 'Categoria', value: 'Supercarro' },
+                    { name: 'Portas', value: '2' },
+                    { name: 'Lugares', value: '2' }
+                ],
+                performance: [
+                    { name: 'Motor', value: '6.5L V12' },
+                    { name: 'Potência', value: '700 cv' },
+                    { name: 'Torque', value: '70,4 kgfm' },
+                    { name: '0-100 km/h', value: '2,9 segundos' },
+                    { name: 'Velocidade Máxima', value: '350 km/h' }
+                ],
+                dimensions: [
+                    { name: 'Comprimento', value: '4.780 mm' },
+                    { name: 'Largura', value: '2.030 mm' },
+                    { name: 'Altura', value: '1.136 mm' },
+                    { name: 'Peso', value: '1.575 kg' },
+                    { name: 'Porta-malas', value: '150 litros' }
+                ],
+                transmission: [
+                    { name: 'Transmissão', value: 'Automática de 7 velocidades' },
+                    { name: 'Tração', value: 'Integral' },
+                    { name: 'Consumo cidade', value: '5,0 km/l' },
+                    { name: 'Consumo estrada', value: '8,5 km/l' }
+                ]
+            },
+            {
+                id: 'lamborghini-huracan',
+                title: 'Lamborghini Huracán',
+                brand: 'lamborghini',
+                type: 'sport',
+                price: 'high',
+                image: 'https://images.unsplash.com/photo-1544829099-b9a0c07fad1a?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80',
+                description: 'O Lamborghini Huracán é um supercarro com motor V10 que combina desempenho extremo e dirigibilidade.',
+                general: [
+                    { name: 'Ano', value: '2014' },
+                    { name: 'Preço', value: 'R$ 3.200.000' },
+                    { name: 'Categoria', value: 'Supercarro' },
+                    { name: 'Portas', value: '2' },
+                    { name: 'Lugares', value: '2' }
+                ],
+                performance: [
+                    { name: 'Motor', value: '5.2L V10' },
+                    { name: 'Potência', value: '610 cv' },
+                    { name: 'Torque', value: '57,1 kgfm' },
+                    { name: '0-100 km/h', value: '3,2 segundos' },
+                    { name: 'Velocidade Máxima', value: '325 km/h' }
+                ],
+                dimensions: [
+                    { name: 'Comprimento', value: '4.459 mm' },
+                    { name: 'Largura', value: '1.924 mm' },
+                    { name: 'Altura', value: '1.165 mm' },
+                    { name: 'Peso', value: '1.422 kg' },
+                    { name: 'Porta-malas', value: '150 litros' }
+                ],
+                transmission: [
+                    { name: 'Transmissão', value: 'Automática de 7 velocidades' },
+                    { name: 'Tração', value: 'Integral' },
+                    { name: 'Consumo cidade', value: '5,9 km/l' },
+                    { name: 'Consumo estrada', value: '9,8 km/l' }
+                ]
+            },
+            // Adicione mais carros seguindo o mesmo padrão...
+            
+            // Porsche
+            {
+                id: 'porsche-911',
+                title: 'Porsche 911',
+                brand: 'porsche',
+                type: 'sport',
+                price: 'high',
+                image: 'https://images.unsplash.com/photo-1503376780353-7e6692767b70?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80',
+                description: 'O Porsche 911 é um ícone automotivo que combina desempenho, elegância e tradição.',
+                general: [
+                    { name: 'Ano', value: '1964 (atual)' },
+                    { name: 'Preço', value: 'R$ 850.000' },
+                    { name: 'Categoria', value: 'Esportivo' },
+                    { name: 'Portas', value: '2' },
+                    { name: 'Lugares', value: '4' }
+                ],
+                performance: [
+                    { name: 'Motor', value: '3.0L B6 Biturbo' },
+                    { name: 'Potência', value: '385 cv' },
+                    { name: 'Torque', value: '45,9 kgfm' },
+                    { name: '0-100 km/h', value: '4,2 segundos' },
+                    { name: 'Velocidade Máxima', value: '293 km/h' }
+                ],
+                dimensions: [
+                    { name: 'Comprimento', value: '4.519 mm' },
+                    { name: 'Largura', value: '1.852 mm' },
+                    { name: 'Altura', value: '1.300 mm' },
+                    { name: 'Peso', value: '1.515 kg' },
+                    { name: 'Porta-malas', value: '132 litros' }
+                ],
+                transmission: [
+                    { name: 'Transmissão', value: 'Automática de 8 velocidades (PDK)' },
+                    { name: 'Tração', value: 'Traseira' },
+                    { name: 'Consumo cidade', value: '9,2 km/l' },
+                    { name: 'Consumo estrada', value: '12,5 km/l' }
+                ]
+            },
+            {
+                id: 'porsche-cayenne',
+                title: 'Porsche Cayenne',
+                brand: 'porsche',
+                type: 'suv',
+                price: 'high',
+                image: 'https://images.unsplash.com/photo-1503376780353-7e6692767b70?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80',
+                description: 'O Porsche Cayenne é um SUV de luxo que combina conforto, espaço e desempenho esportivo.',
+                general: [
+                    { name: 'Ano', value: '2002' },
+                    { name: 'Preço', value: 'R$ 550.000' },
+                    { name: 'Categoria', value: 'SUV' },
                     { name: 'Portas', value: '5' },
                     { name: 'Lugares', value: '5' }
                 ],
                 performance: [
-                    { name: 'Motor', value: '4.0L V8 Biturbo' },
-                    { name: 'Potência', value: '600 cv' },
-                    { name: 'Torque', value: '81,6 kgfm' },
-                    { name: '0-100 km/h', value: '3,6 segundos' },
-                    { name: 'Velocidade Máxima', value: '305 km/h' }
+                    { name: 'Motor', value: '3.0L V6 Turbo' },
+                    { name: 'Potência', value: '340 cv' },
+                    { name: 'Torque', value: '45,9 kgfm' },
+                    { name: '0-100 km/h', value: '6,2 segundos' },
+                    { name: 'Velocidade Máxima', value: '245 km/h' }
                 ],
                 dimensions: [
-                    { name: 'Comprimento', value: '4.969 mm' },
-                    { name: 'Largura', value: '1.951 mm' },
-                    { name: 'Altura', value: '1.422 mm' },
-                    { name: 'Peso', value: '2.050 kg' },
-                    { name: 'Porta-malas', value: '535 litros' }
+                    { name: 'Comprimento', value: '4.918 mm' },
+                    { name: 'Largura', value: '1.983 mm' },
+                    { name: 'Altura', value: '1.696 mm' },
+                    { name: 'Peso', value: '2.105 kg' },
+                    { name: 'Porta-malas', value: '770 litros' }
                 ],
                 transmission: [
                     { name: 'Transmissão', value: 'Automática de 8 velocidades' },
-                    { name: 'Tração', value: 'Integral (Quattro)' },
-                    { name: 'Consumo cidade', value: '6,8 km/l' },
-                    { name: 'Consumo estrada', value: '9,2 km/l' }
+                    { name: 'Tração', value: 'Integral' },
+                    { name: 'Consumo cidade', value: '7,8 km/l' },
+                    { name: 'Consumo estrada', value: '10,5 km/l' }
                 ]
             },
+            // Adicione mais carros seguindo o mesmo padrão...
+            
+            // BMW
             {
-                id: 'bmw-m4',
-                title: 'BMW M4 Competition',
+                id: 'bmw-m3',
+                title: 'BMW M3',
                 brand: 'bmw',
-                type: 'coupe',
-                price: 'high',
-                image: 'm4.jpg',
-                description: 'O BMW M4 Competition é um cupê esportivo que oferece desempenho excepcional, design agressivo e tecnologia avançada para os entusiastas da direção.',
+                type: 'sedan',
+                price: 'medium',
+                image: 'https://images.unsplash.com/photo-1580273916550-e323be2ae537?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80',
+                description: 'O BMW M3 é um sedan esportivo que combina desempenho, luxo e praticidade no dia a dia.',
                 general: [
-                    { name: 'Ano', value: '2023' },
-                    { name: 'Preço', value: 'R$ 759.990' },
-                    { name: 'Categoria', value: 'Cupê Esportivo' },
-                    { name: 'Portas', value: '2' },
-                    { name: 'Lugares', value: '4' }
+                    { name: 'Ano', value: '1986' },
+                    { name: 'Preço', value: 'R$ 650.000' },
+                    { name: 'Categoria', value: 'Sedan Esportivo' },
+                    { name: 'Portas', value: '4' },
+                    { name: 'Lugares', value: '5' }
                 ],
                 performance: [
                     { name: 'Motor', value: '3.0L R6 Biturbo' },
@@ -903,133 +1142,145 @@
                     { name: 'Largura', value: '1.887 mm' },
                     { name: 'Altura', value: '1.393 mm' },
                     { name: 'Peso', value: '1.800 kg' },
-                    { name: 'Porta-malas', value: '440 litros' }
+                    { name: 'Porta-malas', value: '480 litros' }
                 ],
                 transmission: [
                     { name: 'Transmissão', value: 'Automática de 8 velocidades' },
+                    { name: 'Tração', value: 'Traseira' },
+                    { name: 'Consumo cidade', value: '8,5 km/l' },
+                    { name: 'Consumo estrada', value: '11,2 km/l' }
+                ]
+            },
+            // Adicione mais carros seguindo o mesmo padrão...
+            
+            // Mercedes-Benz
+            {
+                id: 'mercedes-amg-gt',
+                title: 'Mercedes-AMG GT',
+                brand: 'mercedes',
+                type: 'sport',
+                price: 'high',
+                image: 'https://images.unsplash.com/photo-1563720223485-244a6c8f707f?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80',
+                description: 'O Mercedes-AMG GT é um cupê esportivo que combina luxo, conforto e desempenho extremo.',
+                general: [
+                    { name: 'Ano', value: '2014' },
+                    { name: 'Preço', value: 'R$ 950.000' },
+                    { name: 'Categoria', value: 'Cupê Esportivo' },
+                    { name: 'Portas', value: '2' },
+                    { name: 'Lugares', value: '2' }
+                ],
+                performance: [
+                    { name: 'Motor', value: '4.0L V8 Biturbo' },
+                    { name: 'Potência', value: '476 cv' },
+                    { name: 'Torque', value: '63,8 kgfm' },
+                    { name: '0-100 km/h', value: '4,0 segundos' },
+                    { name: 'Velocidade Máxima', value: '304 km/h' }
+                ],
+                dimensions: [
+                    { name: 'Comprimento', value: '4.546 mm' },
+                    { name: 'Largura', value: '1.939 mm' },
+                    { name: 'Altura', value: '1.288 mm' },
+                    { name: 'Peso', value: '1.545 kg' },
+                    { name: 'Porta-malas', value: '350 litros' }
+                ],
+                transmission: [
+                    { name: 'Transmissão', value: 'Automática de 7 velocidades' },
                     { name: 'Tração', value: 'Traseira' },
                     { name: 'Consumo cidade', value: '7,5 km/l' },
                     { name: 'Consumo estrada', value: '10,2 km/l' }
                 ]
             },
+            // Adicione mais carros seguindo o mesmo padrão...
+            
+            // Toyota
             {
-                id: 'mercedes-amg',
-                title: 'Mercedes-AMG GT 63 S',
-                brand: 'mercedes',
-                type: 'coupe',
-                price: 'high',
-                image: 'amggt63.webp',
-                description: 'O Mercedes-AMG GT 63 S é um super sedã que combina luxo, conforto e desempenho extremo em um pacote exclusivo.',
-                general: [
-                    { name: 'Ano', value: '2023' },
-                    { name: 'Preço', value: 'R$ 1.199.990' },
-                    { name: 'Categoria', value: 'Sedan Esportivo' },
-                    { name: 'Portas', value: '4' },
-                    { name: 'Lugares', value: '5' }
-                ],
-                performance: [
-                    { name: 'Motor', value: '4.0L V8 Biturbo' },
-                    { name: 'Potência', value: '639 cv' },
-                    { name: 'Torque', value: '91,8 kgfm' },
-                    { name: '0-100 km/h', value: '3,2 segundos' },
-                    { name: 'Velocidade Máxima', value: '315 km/h' }
-                ],
-                dimensions: [
-                    { name: 'Comprimento', value: '5.054 mm' },
-                    { name: 'Largura', value: '1.953 mm' },
-                    { name: 'Altura', value: '1.455 mm' },
-                    { name: 'Peso', value: '2.165 kg' },
-                    { name: 'Porta-malas', value: '456 litros' }
-                ],
-                transmission: [
-                    { name: 'Transmissão', value: 'Automática de 9 velocidades' },
-                    { name: 'Tração', value: 'Integral (4MATIC+)' },
-                    { name: 'Consumo cidade', value: '6,5 km/l' },
-                    { name: 'Consumo estrada', value: '8,9 km/l' }
-                ]
-            },
-            {
-                id: 'porsche-911',
-                title: 'Porsche 911 Turbo S',
-                brand: 'porsche',
-                type: 'sport',
-                price: 'high',
-                image: 'porsche911.jpg',
-                description: 'O Porsche 911 Turbo S é um ícone automotivo que combina desempenho brutal com elegância atemporal e precisão alemã.',
-                general: [
-                    { name: 'Ano', value: '2023' },
-                    { name: 'Preço', value: 'R$ 1.399.990' },
-                    { name: 'Categoria', value: 'Esportivo' },
-                    { name: 'Portas', value: '2' },
-                    { name: 'Lugares', value: '4' }
-                ],
-                performance: [
-                    { name: 'Motor', value: '3.8L B6 Biturbo' },
-                    { name: 'Potência', value: '650 cv' },
-                    { name: 'Torque', value: '81,6 kgfm' },
-                    { name: '0-100 km/h', value: '2,7 segundos' },
-                    { name: 'Velocidade Máxima', value: '330 km/h' }
-                ],
-                dimensions: [
-                    { name: 'Comprimento', value: '4.535 mm' },
-                    { name: 'Largura', value: '1.900 mm' },
-                    { name: 'Altura', value: '1.303 mm' },
-                    { name: 'Peso', value: '1.640 kg' },
-                    { name: 'Porta-malas', value: '132 litros' }
-                ],
-                transmission: [
-                    { name: 'Transmissão', value: 'Automática de 8 velocidades (PDK)' },
-                    { name: 'Tração', value: 'Integral' },
-                    { name: 'Consumo cidade', value: '7,2 km/l' },
-                    { name: 'Consumo estrada', value: '9,8 km/l' }
-                ]
-            },
-            {
-                id: 'tesla-model-s',
-                title: 'Tesla Model S Plaid',
-                brand: 'tesla',
+                id: 'toyota-corolla',
+                title: 'Toyota Corolla',
+                brand: 'toyota',
                 type: 'sedan',
-                price: 'high',
-                image: 'https://images.unsplash.com/photo-1560958089-b8a1929cea89?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80',
-                description: 'O Tesla Model S Plaid redefine o conceito de sedan de alto desempenho com aceleração elétrica instantânea e tecnologia autônoma avançada.',
+                price: 'medium',
+                image: 'https://images.unsplash.com/photo-1583121274602-3e2820c69888?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80',
+                description: 'O Toyota Corolla é um sedan confiável e econômico, um dos carros mais vendidos do mundo.',
                 general: [
-                    { name: 'Ano', value: '2023' },
-                    { name: 'Preço', value: 'R$ 699.990' },
-                    { name: 'Categoria', value: 'Sedan Elétrico' },
+                    { name: 'Ano', value: '1966' },
+                    { name: 'Preço', value: 'R$ 140.000' },
+                    { name: 'Categoria', value: 'Sedan' },
                     { name: 'Portas', value: '4' },
                     { name: 'Lugares', value: '5' }
                 ],
                 performance: [
-                    { name: 'Motor', value: 'Três motores elétricos' },
-                    { name: 'Potência', value: '1.020 cv' },
-                    { name: 'Torque', value: '142,4 kgfm' },
-                    { name: '0-100 km/h', value: '2,1 segundos' },
-                    { name: 'Velocidade Máxima', value: '322 km/h' }
+                    { name: 'Motor', value: '2.0L 4 cilindros' },
+                    { name: 'Potência', value: '177 cv' },
+                    { name: 'Torque', value: '21,4 kgfm' },
+                    { name: '0-100 km/h', value: '9,2 segundos' },
+                    { name: 'Velocidade Máxima', value: '200 km/h' }
                 ],
                 dimensions: [
-                    { name: 'Comprimento', value: '4.979 mm' },
-                    { name: 'Largura', value: '1.964 mm' },
-                    { name: 'Altura', value: '1.445 mm' },
-                    { name: 'Peso', value: '2.162 kg' },
-                    { name: 'Porta-malas', value: '793 litros' }
+                    { name: 'Comprimento', value: '4.630 mm' },
+                    { name: 'Largura', value: '1.780 mm' },
+                    { name: 'Altura', value: '1.435 mm' },
+                    { name: 'Peso', value: '1.330 kg' },
+                    { name: 'Porta-malas', value: '470 litros' }
                 ],
                 transmission: [
-                    { name: 'Transmissão', value: 'Automática de um estágio' },
-                    { name: 'Tração', value: 'Integral' },
-                    { name: 'Autonomia', value: '637 km' },
-                    { name: 'Recarga rápida', value: '15 min (0-80%)' }
+                    { name: 'Transmissão', value: 'CVT' },
+                    { name: 'Tração', value: 'Dianteira' },
+                    { name: 'Consumo cidade', value: '13,5 km/l' },
+                    { name: 'Consumo estrada', value: '16,2 km/l' }
                 ]
             },
+            // Adicione mais carros seguindo o mesmo padrão...
+            
+            // Honda
+            {
+                id: 'honda-civic',
+                title: 'Honda Civic',
+                brand: 'honda',
+                type: 'sedan',
+                price: 'medium',
+                image: 'https://images.unsplash.com/photo-1552519507-da3b142c6e3d?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80',
+                description: 'O Honda Civic é um sedan esportivo e confiável, conhecido por seu design e desempenho.',
+                general: [
+                    { name: 'Ano', value: '1972' },
+                    { name: 'Preço', value: 'R$ 150.000' },
+                    { name: 'Categoria', value: 'Sedan' },
+                    { name: 'Portas', value: '4' },
+                    { name: 'Lugares', value: '5' }
+                ],
+                performance: [
+                    { name: 'Motor', value: '2.0L 4 cilindros' },
+                    { name: 'Potência', value: '158 cv' },
+                    { name: 'Torque', value: '19,4 kgfm' },
+                    { name: '0-100 km/h', value: '8,5 segundos' },
+                    { name: 'Velocidade Máxima', value: '210 km/h' }
+                ],
+                dimensions: [
+                    { name: 'Comprimento', value: '4.653 mm' },
+                    { name: 'Largura', value: '1.799 mm' },
+                    { name: 'Altura', value: '1.416 mm' },
+                    { name: 'Peso', value: '1.315 kg' },
+                    { name: 'Porta-malas', value: '408 litros' }
+                ],
+                transmission: [
+                    { name: 'Transmissão', value: 'CVT' },
+                    { name: 'Tração', value: 'Dianteira' },
+                    { name: 'Consumo cidade', value: '12,8 km/l' },
+                    { name: 'Consumo estrada', value: '15,5 km/l' }
+                ]
+            },
+            // Adicione mais carros seguindo o mesmo padrão...
+            
+            // Ford
             {
                 id: 'ford-mustang',
-                title: 'Ford Mustang GT',
+                title: 'Ford Mustang',
                 brand: 'ford',
                 type: 'coupe',
                 price: 'medium',
-                image: 'fordmustang.webp',
-                description: 'O Ford Mustang GT é um muscle car americano icônico que combina design agressivo, potência bruta e acessibilidade.',
+                image: 'https://images.unsplash.com/photo-1544636331-e26879cd4d9b?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80',
+                description: 'O Ford Mustang é um ícone americano, um muscle car que combina potência e estilo inconfundível.',
                 general: [
-                    { name: 'Ano', value: '2023' },
+                    { name: 'Ano', value: '1964' },
                     { name: 'Preço', value: 'R$ 459.990' },
                     { name: 'Categoria', value: 'Muscle Car' },
                     { name: 'Portas', value: '2' },
@@ -1056,16 +1307,19 @@
                     { name: 'Consumo estrada', value: '9,1 km/l' }
                 ]
             },
+            // Adicione mais carros seguindo o mesmo padrão...
+            
+            // Chevrolet
             {
                 id: 'chevrolet-camaro',
-                title: 'Chevrolet Camaro SS',
+                title: 'Chevrolet Camaro',
                 brand: 'chevrolet',
                 type: 'coupe',
                 price: 'medium',
-                image: 'camaro.jpg',
-                description: 'O Chevrolet Camaro SS é um muscle car lendário que oferece desempenho emocionante e um design marcante que chama atenção.',
+                image: 'https://images.unsplash.com/photo-1584345604476-8ec5e12e42dd?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80',
+                description: 'O Chevrolet Camaro é um muscle car lendário que oferece desempenho emocionante e design marcante.',
                 general: [
-                    { name: 'Ano', value: '2023' },
+                    { name: 'Ano', value: '1966' },
                     { name: 'Preço', value: 'R$ 399.990' },
                     { name: 'Categoria', value: 'Muscle Car' },
                     { name: 'Portas', value: '2' },
@@ -1091,7 +1345,203 @@
                     { name: 'Consumo cidade', value: '6,5 km/l' },
                     { name: 'Consumo estrada', value: '9,4 km/l' }
                 ]
+            },
+            // Adicione mais carros seguindo o mesmo padrão...
+            
+            // Fiat
+            {
+                id: 'fiat-500',
+                title: 'Fiat 500',
+                brand: 'fiat',
+                type: 'hatch',
+                price: 'low',
+                image: 'https://images.unsplash.com/photo-1601362840469-51e4d8d58785?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80',
+                description: 'O Fiat 500 é um compacto icônico com design retrô, ideal para o trânsito urbano.',
+                general: [
+                    { name: 'Ano', value: '1957' },
+                    { name: 'Preço', value: 'R$ 89.990' },
+                    { name: 'Categoria', value: 'Hatch Compacto' },
+                    { name: 'Portas', value: '3' },
+                    { name: 'Lugares', value: '4' }
+                ],
+                performance: [
+                    { name: 'Motor', value: '1.4L 4 cilindros' },
+                    { name: 'Potência', value: '101 cv' },
+                    { name: 'Torque', value: '13,5 kgfm' },
+                    { name: '0-100 km/h', value: '10,5 segundos' },
+                    { name: 'Velocidade Máxima', value: '182 km/h' }
+                ],
+                dimensions: [
+                    { name: 'Comprimento', value: '3.546 mm' },
+                    { name: 'Largura', value: '1.627 mm' },
+                    { name: 'Altura', value: '1.488 mm' },
+                    { name: 'Peso', value: '1.005 kg' },
+                    { name: 'Porta-malas', value: '185 litros' }
+                ],
+                transmission: [
+                    { name: 'Transmissão', value: 'Automática de 6 velocidades' },
+                    { name: 'Tração', value: 'Dianteira' },
+                    { name: 'Consumo cidade', value: '10,5 km/l' },
+                    { name: 'Consumo estrada', value: '13,8 km/l' }
+                ]
+            },
+            // Adicione mais carros seguindo o mesmo padrão...
+            
+            // Volkswagen
+            {
+                id: 'volkswagen-golf',
+                title: 'Volkswagen Golf',
+                brand: 'volkswagen',
+                type: 'hatch',
+                price: 'medium',
+                image: 'https://images.unsplash.com/photo-1553440569-bcc63803a83d?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80',
+                description: 'O Volkswagen Golf é um hatchback premium que combina qualidade alemã, desempenho e praticidade.',
+                general: [
+                    { name: 'Ano', value: '1974' },
+                    { name: 'Preço', value: 'R$ 170.000' },
+                    { name: 'Categoria', value: 'Hatch' },
+                    { name: 'Portas', value: '5' },
+                    { name: 'Lugares', value: '5' }
+                ],
+                performance: [
+                    { name: 'Motor', value: '2.0L 4 cilindros Turbo' },
+                    { name: 'Potência', value: '230 cv' },
+                    { name: 'Torque', value: '35,7 kgfm' },
+                    { name: '0-100 km/h', value: '6,4 segundos' },
+                    { name: 'Velocidade Máxima', value: '250 km/h' }
+                ],
+                dimensions: [
+                    { name: 'Comprimento', value: '4.284 mm' },
+                    { name: 'Largura', value: '1.789 mm' },
+                    { name: 'Altura', value: '1.456 mm' },
+                    { name: 'Peso', value: '1.415 kg' },
+                    { name: 'Porta-malas', value: '380 litros' }
+                ],
+                transmission: [
+                    { name: 'Transmissão', value: 'Automática de 7 velocidades' },
+                    { name: 'Tração', value: 'Dianteira' },
+                    { name: 'Consumo cidade', value: '10,2 km/l' },
+                    { name: 'Consumo estrada', value: '13,5 km/l' }
+                ]
+            },
+            // Adicione mais carros seguindo o mesmo padrão...
+            
+            // Tesla
+            {
+                id: 'tesla-model-s',
+                title: 'Tesla Model S',
+                brand: 'tesla',
+                type: 'sedan',
+                price: 'high',
+                image: 'https://images.unsplash.com/photo-1560958089-b8a1929cea89?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80',
+                description: 'O Tesla Model S é um sedan elétrico de alto desempenho que redefine o conceito de carro premium.',
+                general: [
+                    { name: 'Ano', value: '2012' },
+                    { name: 'Preço', value: 'R$ 699.990' },
+                    { name: 'Categoria', value: 'Sedan Elétrico' },
+                    { name: 'Portas', value: '4' },
+                    { name: 'Lugares', value: '5' }
+                ],
+                performance: [
+                    { name: 'Motor', value: 'Dual Motor Elétrico' },
+                    { name: 'Potência', value: '670 cv' },
+                    { name: 'Torque', value: '95,9 kgfm' },
+                    { name: '0-100 km/h', value: '3,2 segundos' },
+                    { name: 'Velocidade Máxima', value: '250 km/h' }
+                ],
+                dimensions: [
+                    { name: 'Comprimento', value: '4.979 mm' },
+                    { name: 'Largura', value: '1.964 mm' },
+                    { name: 'Altura', value: '1.445 mm' },
+                    { name: 'Peso', value: '2.162 kg' },
+                    { name: 'Porta-malas', value: '793 litros' }
+                ],
+                transmission: [
+                    { name: 'Transmissão', value: 'Automática de um estágio' },
+                    { name: 'Tração', value: 'Integral' },
+                    { name: 'Autonomia', value: '652 km' },
+                    { name: 'Recarga rápida', value: '15 min (0-80%)' }
+                ]
+            },
+            // Adicione mais carros seguindo o mesmo padrão...
+            
+            // Aston Martin
+            {
+                id: 'aston-martin-db11',
+                title: 'Aston Martin DB11',
+                brand: 'aston-martin',
+                type: 'coupe',
+                price: 'high',
+                image: 'https://images.unsplash.com/photo-1544636331-e26879cd4d9b?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80',
+                description: 'O Aston Martin DB11 é um grand tourer britânico que combina luxo, elegância e desempenho excepcional.',
+                general: [
+                    { name: 'Ano', value: '2016' },
+                    { name: 'Preço', value: 'R$ 1.800.000' },
+                    { name: 'Categoria', value: 'Grand Tourer' },
+                    { name: 'Portas', value: '2' },
+                    { name: 'Lugares', value: '2+2' }
+                ],
+                performance: [
+                    { name: 'Motor', value: '5.2L V12 Biturbo' },
+                    { name: 'Potência', value: '608 cv' },
+                    { name: 'Torque', value: '71,4 kgfm' },
+                    { name: '0-100 km/h', value: '3,9 segundos' },
+                    { name: 'Velocidade Máxima', value: '334 km/h' }
+                ],
+                dimensions: [
+                    { name: 'Comprimento', value: '4.739 mm' },
+                    { name: 'Largura', value: '2.060 mm' },
+                    { name: 'Altura', value: '1.279 mm' },
+                    { name: 'Peso', value: '1.770 kg' },
+                    { name: 'Porta-malas', value: '270 litros' }
+                ],
+                transmission: [
+                    { name: 'Transmissão', value: 'Automática de 8 velocidades' },
+                    { name: 'Tração', value: 'Traseira' },
+                    { name: 'Consumo cidade', value: '6,5 km/l' },
+                    { name: 'Consumo estrada', value: '9,8 km/l' }
+                ]
+            },
+            // Adicione mais carros seguindo o mesmo padrão...
+            
+            // McLaren
+            {
+                id: 'mclaren-720s',
+                title: 'McLaren 720S',
+                brand: 'mclaren',
+                type: 'sport',
+                price: 'high',
+                image: 'https://images.unsplash.com/photo-1544636331-e26879cd4d9b?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80',
+                description: 'O McLaren 720S é um supercarro britânico que oferece desempenho extremo e tecnologia de ponta.',
+                general: [
+                    { name: 'Ano', value: '2017' },
+                    { name: 'Preço', value: 'R$ 2.800.000' },
+                    { name: 'Categoria', value: 'Supercarro' },
+                    { name: 'Portas', value: '2' },
+                    { name: 'Lugares', value: '2' }
+                ],
+                performance: [
+                    { name: 'Motor', value: '4.0L V8 Biturbo' },
+                    { name: 'Potência', value: '720 cv' },
+                    { name: 'Torque', value: '78,5 kgfm' },
+                    { name: '0-100 km/h', value: '2,9 segundos' },
+                    { name: 'Velocidade Máxima', value: '341 km/h' }
+                ],
+                dimensions: [
+                    { name: 'Comprimento', value: '4.543 mm' },
+                    { name: 'Largura', value: '2.059 mm' },
+                    { name: 'Altura', value: '1.196 mm' },
+                    { name: 'Peso', value: '1.283 kg' },
+                    { name: 'Porta-malas', value: '150 litros' }
+                ],
+                transmission: [
+                    { name: 'Transmissão', value: 'Automática de 7 velocidades' },
+                    { name: 'Tração', value: 'Traseira' },
+                    { name: 'Consumo cidade', value: '6,8 km/l' },
+                    { name: 'Consumo estrada', value: '10,2 km/l' }
+                ]
             }
+            // Adicione mais carros seguindo o mesmo padrão...
         ];
 
         // Elementos DOM
@@ -1103,10 +1553,18 @@
         const searchBtn = document.getElementById('searchBtn');
         const mobileMenuBtn = document.getElementById('mobileMenuBtn');
         const navMenu = document.getElementById('navMenu');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const pageInfo = document.getElementById('pageInfo');
+
+        // Variáveis de paginação
+        let currentPage = 1;
+        const carsPerPage = 9;
+        let filteredCars = [...carData];
 
         // Inicialização
         document.addEventListener('DOMContentLoaded', function() {
-            renderCars(carData);
+            renderCars();
             setupEventListeners();
         });
 
@@ -1125,18 +1583,26 @@
             mobileMenuBtn.addEventListener('click', function() {
                 navMenu.classList.toggle('active');
             });
+            
+            prevBtn.addEventListener('click', goToPrevPage);
+            nextBtn.addEventListener('click', goToNextPage);
         }
 
         // Renderizar carros no grid
-        function renderCars(cars) {
+        function renderCars() {
             carsGrid.innerHTML = '';
             
-            if (cars.length === 0) {
+            if (filteredCars.length === 0) {
                 carsGrid.innerHTML = '<p class="no-results" style="text-align: center; grid-column: 1/-1; padding: 2rem; color: #666;">Nenhum carro encontrado com os filtros selecionados.</p>';
+                updatePaginationControls();
                 return;
             }
             
-            cars.forEach(car => {
+            const startIndex = (currentPage - 1) * carsPerPage;
+            const endIndex = startIndex + carsPerPage;
+            const carsToShow = filteredCars.slice(startIndex, endIndex);
+            
+            carsToShow.forEach(car => {
                 const price = car.general.find(item => item.name === 'Preço').value;
                 
                 const carCard = document.createElement('div');
@@ -1171,6 +1637,35 @@
                 
                 carsGrid.appendChild(carCard);
             });
+            
+            updatePaginationControls();
+        }
+
+        // Atualizar controles de paginação
+        function updatePaginationControls() {
+            const totalPages = Math.ceil(filteredCars.length / carsPerPage);
+            
+            pageInfo.textContent = `Página ${currentPage} de ${totalPages}`;
+            
+            prevBtn.disabled = currentPage === 1;
+            nextBtn.disabled = currentPage === totalPages || totalPages === 0;
+        }
+
+        // Ir para página anterior
+        function goToPrevPage() {
+            if (currentPage > 1) {
+                currentPage--;
+                renderCars();
+            }
+        }
+
+        // Ir para próxima página
+        function goToNextPage() {
+            const totalPages = Math.ceil(filteredCars.length / carsPerPage);
+            if (currentPage < totalPages) {
+                currentPage++;
+                renderCars();
+            }
         }
 
         // Filtrar carros
@@ -1180,7 +1675,7 @@
             const priceValue = priceFilter.value;
             const searchValue = searchInput.value.toLowerCase();
             
-            const filteredCars = carData.filter(car => {
+            filteredCars = carData.filter(car => {
                 const matchesBrand = brandValue === 'all' || car.brand === brandValue;
                 const matchesType = typeValue === 'all' || car.type === typeValue;
                 const matchesPrice = priceValue === 'all' || car.price === priceValue;
@@ -1191,7 +1686,8 @@
                 return matchesBrand && matchesType && matchesPrice && matchesSearch;
             });
             
-            renderCars(filteredCars);
+            currentPage = 1;
+            renderCars();
         }
 
         // Pesquisar carros
